@@ -30,3 +30,9 @@
 
 # Debug files
 *.dSYM/
+
+# AVR Specific
+*.map
+
+# Temp Files
+*.swp
