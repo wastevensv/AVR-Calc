@@ -1,38 +1,44 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
 
 int main()
 {
-    uint8_t   input_str[] = "2 22+ 66 -";
+    uint8_t   input_str[] = "66 2 22+ -";
     uint8_t*  nextc = input_str;
-    
-    int64_t  stack[16];
-    int64_t* stack_top = stack;
-    
     while(*nextc != 0x00) {
+        int64_t a, b = 0;
         switch (*nextc) {
             case '0' ... '9':
-                *(++stack_top) = strtol(nextc,&nextc,10);
+                push(strtol(nextc,&nextc,10));
                 nextc--;
                 break;
             case '+':
-                *(stack_top) = *(stack_top) + *(--stack_top);
+                a = pop();
+                b = pop();
+                push(a + b);
                 break;
             case '-':
-                *(stack_top) = *(stack_top) - *(--stack_top);
+                a = pop();
+                b = pop();
+                push(b - a);
                 break;
             case '*':
-                *(stack_top) = *(stack_top) * *(--stack_top);
+                a = pop();
+                b = pop();
+                push(b * a);
                 break;
             case '/':
-                *(stack_top) = *(stack_top) / *(--stack_top);
+                a = pop();
+                b = pop();
+                push(b / a);
                 break;
         }
         nextc++;
     }
     
-    printf("%lli\n",*stack_top);
+    printf("%llu\n",pop());
     return 0;
 }
 
