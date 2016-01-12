@@ -1,3 +1,7 @@
+*
+!*.*
+!*/
+
 # Object files
 *.o
 *.ko
@@ -36,3 +40,4 @@
 
 # Temp Files
 *.swp
+*~
