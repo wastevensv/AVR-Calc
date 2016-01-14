@@ -2,29 +2,17 @@
 #include <util/delay.h>
 #include "i2c.h"
 #include "macros.h"
-
-#define LCD_ADDR 0x50
+#include "lcd.h"
 
 int main (void)
 {
-    const uint8_t msg[] = "Hello";
-    // --- Init ---
+    const uint8_t fst[] = "Hello";
+    const uint8_t snd[] = "World";
+
     initI2C();
-    i2cStart();
-    i2cSend(LCD_ADDR);
-    i2cSend(0xFE);
-    i2cSend(0x51);
-    for (uint8_t i = 0; i < sizeof(msg); i++) {
-        i2cStart();
-        i2cSend(LCD_ADDR);
-        i2cSend(msg[i]);
-        _delay_ms(100);
-    }
-    _delay_ms(10000);
-    i2cStart();
-    i2cSend(LCD_ADDR);
-    i2cSend(0xFE);
-    i2cSend(0x51);
-    i2cStop();
+    lcd_clear();
+    lcd_print(fst);
+    lcd_move(1,0);
+    lcd_print(snd);
     while(1) {;};
 }

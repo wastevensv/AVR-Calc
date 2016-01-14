@@ -5,7 +5,7 @@
 ##########------------------------------------------------------##########
 
 MCU   = atmega328p
-F_CPU = 8000000UL  # 9.6 MHz on ATTiny13. 8 MHz on ATMega328.
+F_CPU = 16000000UL  # 9.6 MHz on ATTiny13. 8 MHz on ATMega328.
 BAUD  = 9600UL
 ## Also try BAUD = 19200 or 38400 if you're feeling lucky.
 
