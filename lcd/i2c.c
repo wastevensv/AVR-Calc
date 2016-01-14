@@ -1,7 +1,7 @@
 #include "i2c.h"
 
 void initI2C(void) {
-  TWBR = 32;                               /* set bit rate, see p. 242 */
+  TWBR = ((F_CPU/100000)-16)/2;                               /* set bit rate, see p. 242 */
                                      /* 8MHz / (16+2*TWBR*1) ~= 100kHz */
   TWCR |= (1 << TWEN);                                       /* enable */
 }

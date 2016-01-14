@@ -19,7 +19,7 @@
 */
 
 /* Define up the full complement of bit-twiddling macros */
-#define BV(bit)               (1 << bit)
+#define BV(bit)               (1 << (bit))
 #define set_bit(sfr, bit)     (_SFR_BYTE(sfr) |= BV(bit))  // old sbi()
 #define clear_bit(sfr, bit)   (_SFR_BYTE(sfr) &= ~BV(bit)) // old cbi()
 #define toggle_bit(sfr, bit)  (_SFR_BYTE(sfr) ^= BV(bit))  

@@ -1,6 +1,4 @@
 #include "lcd.h"
-#include <avr/io.h>
-#include <util/delay.h>
 #include "i2c.h"
 
 void lcd_clear() {
