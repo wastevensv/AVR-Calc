@@ -43,22 +43,14 @@ int main (void)
     uint8_t input_len = 0;
     uint8_t i=0;
     uint8_t key='F';
+    uint8_t pair=0;
     uint16_t keycode=0xFFFF;
 
     DDRB |= BV(PB5);
     PORTB |= BV(PB5);
     initI2C();
 
-    mcp_write_register(MCP_REG_IODIRA, 0xFF);
-    mcp_write_register(MCP_REG_IODIRB, 0xFF);
-    mcp_write_register(MCP_REG_GPPUA, 0xFF);
-    mcp_write_register(MCP_REG_GPPUB, 0xFF);
-    mcp_write_register(MCP_REG_IPOLA, 0x00);
-    mcp_write_register(MCP_REG_IPOLB, 0x00);
-    //mcp_write_register_pair(MCP_REG_IOCON, 0b01000000);
-    //mcp_write_register_pair(MCP_REG_GPINTENA, 0xFFFF);
-    //mcp_write_register_pair(MCP_REG_DEFVALA, 0xFFFF);
-    //mcp_write_register_pair(MCP_REG_INTCONA, 0xFFFF);
+    mcp_write_register(MCP_REG_IOCON, 0x60);
 
     lcd_clear();
 
@@ -66,20 +58,19 @@ int main (void)
 
     //initInterrupt0();
     
-    //sei();
     while (1) {
-        //keycode = mcp_read_register_pair(MCP_REG_INTFA);
-        keycode = mcp_read_a();
-        keycode |= (mcp_read_b() << 8);
-        lcd_clear();
-        input[input_len++] = hexkey[((keycode & 0xF000) >> 12)];
-        input[input_len++] = hexkey[((keycode & 0x0F00) >> 8)];
-        input[input_len++] = hexkey[((keycode & 0x00F0) >> 4)];
-        input[input_len++] = hexkey[ (keycode & 0x000F)];
-        lcd_print(input);
-        input_len = 0;
         keycode = 0x0000;
-        newkey = 0;
+        keycode = ~mcp_read_ab();
+        
+        input_len = 0;
+        lcd_clear();
+        input[input_len++] = hexkey[ (keycode & 0x000F)];
+        input[input_len++] = hexkey[((keycode & 0x00F0) >> 4)];
+        input[input_len++] = hexkey[((keycode & 0x0F00) >> 8)];
+        input[input_len++] = hexkey[((keycode & 0xF000) >> 12)];
+        input[input_len++] = '\0';
+        lcd_print(input);
+        
         _delay_ms(250);
     }
 }

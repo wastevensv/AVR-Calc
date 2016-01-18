@@ -5,7 +5,6 @@ uint8_t mcp_read_register(uint8_t reg) {
     i2cStart();
     i2cSend(MCP_ADDR_W);
     i2cSend(reg);
-    i2cStop();
 
     i2cStart();
     i2cSend(MCP_ADDR_R);
@@ -18,7 +17,6 @@ uint16_t mcp_read_register_pair(uint8_t reg) {
     i2cStart();
     i2cSend(MCP_ADDR_W);
     i2cSend(reg);
-    i2cStop();
 
     i2cStart();
     i2cSend(MCP_ADDR_R);
