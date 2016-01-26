@@ -39,8 +39,8 @@ void mcp_write_register_pair(uint8_t reg, uint16_t ab) {
     i2cStart();
     i2cSend(MCP_ADDR_W);
     i2cSend(reg);
-    i2cSend(((ab >> 8) & 0xFF));
-    i2cSend((ab & 0xFF));
+    i2cSend((ab & 0xFF00) >> 8);
+    i2cSend((ab & 0x00FF));
     i2cStop();
 }
 
