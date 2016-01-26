@@ -33,10 +33,9 @@ int main (void)
 
     initI2C();
 
-    mcp_write_register(MCP_REG_IOCON, 0x60);
-    mcp_write_register_pair(MCP_REG_IPOLA, 0xFFFF);
-
     lcd_clear();
+
+    mcp_write_register(MCP_REG_IOCON, 0x60);
 
     lcd_print("Hi!");
 
